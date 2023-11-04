@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:store_watch/data/global.dart';
 import 'package:store_watch/screens/home_screen.dart';
+import 'package:store_watch/screens/navi_bar.dart';
 import 'package:store_watch/screens/profile_screen.dart';
 import 'package:store_watch/screens/signup_screen.dart';
 import 'package:store_watch/widgets/button_text.dart';
@@ -9,9 +9,10 @@ import 'package:store_watch/widgets/header.dart';
 import 'package:store_watch/widgets/glass_text_filde.dart';
 import 'package:store_watch/widgets/image_button.dart';
 import 'package:store_watch/widgets/praimery_button.dart';
+
 //4
 class SignInUp extends StatefulWidget {
-  SignInUp({super.key});
+  const SignInUp({super.key});
 
   @override
   State<SignInUp> createState() => _SignInUpState();
@@ -110,7 +111,7 @@ class _SignInUpState extends State<SignInUp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Profile(),
+                                    builder: (context) => const NaviBar(),
                                   ));
                             }
                             return;

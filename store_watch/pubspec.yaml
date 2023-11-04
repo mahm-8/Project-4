@@ -28,13 +28,17 @@ flutter:
    - assets/gmail_icon.png
    - assets/background_watch.jpeg
    - assets/ads_logo.png
-   - assets/ads_logo.png
+   - assets/
   uses-material-design: true
   fonts:
     - family: NotoSerif
       fonts:
         - asset: fonts/NotoSerif_Condensed-ExtraLight.ttf
         - asset: fonts/NotoSerif_SemiCondensed-SemiBold.ttf
+    - family: Lora
+      fonts:
+        - asset: store_watch\fonts\Lora-Regular.ttf
+          
 
 
 
