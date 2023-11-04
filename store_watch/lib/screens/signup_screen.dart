@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/customer.dart';
@@ -6,10 +8,11 @@ import 'package:store_watch/widgets/button_text.dart';
 import 'package:store_watch/widgets/header.dart';
 import 'package:store_watch/widgets/praimery_button.dart';
 import 'package:store_watch/widgets/glass_text_filde.dart';
+
 //5
 class SignUp extends StatelessWidget {
   SignUp({super.key});
-  TextEditingController UserNameOremailContrler = TextEditingController();
+  TextEditingController userNameOremailContrler = TextEditingController();
   TextEditingController nameContrler = TextEditingController();
   TextEditingController passwordContrler = TextEditingController();
   bool isFound = false;
@@ -59,7 +62,7 @@ class SignUp extends StatelessWidget {
                       labelText: "Username or Email",
                       icon: Icons.email_outlined,
                       isPassword: false,
-                      controller: UserNameOremailContrler,
+                      controller: userNameOremailContrler,
                     ),
                     const SizedBox(height: 4),
                     GlassTextFiled(
@@ -82,23 +85,23 @@ class SignUp extends StatelessWidget {
                         child: PraimeryButton(
                             buttonTitle: "Sign Up",
                             onPressed: () {
-                              if (UserNameOremailContrler.text.isNotEmpty &&
+                              if (userNameOremailContrler.text.isNotEmpty &&
                                   nameContrler.text.isNotEmpty &&
                                   passwordContrler.text.isNotEmpty) {
                                 print("1");
                                 if (nameContrler.text.length > 2) {
                                   print("2");
-                                  if (UserNameOremailContrler.text
+                                  if (userNameOremailContrler.text
                                           .contains('@') &&
-                                      UserNameOremailContrler.text
+                                      userNameOremailContrler.text
                                           .endsWith('.com')) {
-                                    email = UserNameOremailContrler.text;
+                                    email = userNameOremailContrler.text;
                                     userName = "null";
                                     print("email $email");
                                     print("3");
                                   } else {
                                     email = "null";
-                                    userName = UserNameOremailContrler.text;
+                                    userName = userNameOremailContrler.text;
                                     print("here name $userName");
                                     print("4");
                                   }
