@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:store_watch/data/global.dart';
+import 'package:store_watch/screens/checkout_screen.dart';
 import 'package:store_watch/widgets/display_order.dart';
 import 'package:store_watch/widgets/two_text.dart';
-
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -59,7 +59,11 @@ class OrderScreenState extends State<OrderScreen> {
                 '\$ ${(globalPrice - (globalPrice * 0.08)).toStringAsFixed(2)}',
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const CheckoutScreen(),
+              ));
+            },
             style: ElevatedButton.styleFrom(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.horizontal(

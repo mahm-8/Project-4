@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store_watch/data/global.dart';
-import 'package:store_watch/screens/home_screen.dart';
 import 'package:store_watch/screens/navi_bar.dart';
-import 'package:store_watch/screens/profile_screen.dart';
 import 'package:store_watch/screens/signup_screen.dart';
 import 'package:store_watch/widgets/button_text.dart';
 import 'package:store_watch/widgets/header.dart';
