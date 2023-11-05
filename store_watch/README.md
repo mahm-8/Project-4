@@ -1,3 +1,20 @@
+# Watch Store App
+A Watch Store shopping app is an application that allows customers to browse and buy watch from our application.
+
+
+
+## Screenshots
+## Features
+- The ability to browse product by type.
+- Customer can search about product by product name.
+- Increase and decrease the number of products in the shopping cart.
+- Customer can modify current delivery address.
+- Customer can update the profile information.
+## Libraries
+- Dot Navigation Bar
+- Badges
+- Glass
+
 # store_watch
 
 ![Screenshot_1699166847](https://github.com/mahm-8/Project-4/assets/141933812/10dc6ed0-8e1f-42e2-bf2e-3ca3cc8699f4)
