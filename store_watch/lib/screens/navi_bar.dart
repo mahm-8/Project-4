@@ -1,7 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:store_watch/screens/home_screen.dart';
 import 'package:store_watch/screens/order_screen.dart';

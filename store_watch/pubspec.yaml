@@ -8,13 +8,12 @@ environment:
 
 dependencies:
   badges: ^3.1.2
-  blurrycontainer: ^1.0.2
   dot_navigation_bar: ^1.0.2
   flutter:
     sdk: flutter
   flutter_pw_validator: ^1.6.0
   glass: ^1.0.2+1
-  glassmorphism: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
