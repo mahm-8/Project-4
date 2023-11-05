@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'screens/navi_bar.dart';
+import 'package:store_watch/screens/get_started_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: NaviBar(),
+      home: GetStarted(),
     );
   }
 }
