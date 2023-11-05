@@ -1,10 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:store_watch/screens/home_screen.dart';
 import 'package:store_watch/screens/order_screen.dart';
 import 'package:store_watch/screens/profile_screen.dart';
+
+import 'search_screen.dart';
 
 class NaviBar extends StatefulWidget {
   const NaviBar({Key? key}) : super(key: key);
@@ -22,7 +24,12 @@ class _NaviBarState extends State<NaviBar> {
     });
   }
 
-  final pages = [const Home(), Container(), const OrderScreen(),Profile()];
+  final pages = [
+    const Home(),
+    const SearchScreen(),
+    const OrderScreen(),
+    Profile()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

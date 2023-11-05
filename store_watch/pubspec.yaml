@@ -37,8 +37,12 @@ flutter:
     - family: Lora
       fonts:
         - asset: fonts\Lora-Regular.ttf
+<<<<<<< HEAD
           
 
 
 
+=======
+      
+>>>>>>> df12eb7f94ffaa15c8ceb452beac82f6a49be430
         

@@ -4,6 +4,7 @@ class Product {
   final String description;
   String price;
   dynamic count;
+  final int popularity;
 
   Product({
     this.count,
@@ -11,6 +12,7 @@ class Product {
     required this.name,
     required this.description,
     required this.price,
+    required this.popularity,
   });
   factory Product.fromJson(Map json) {
     return Product(
@@ -18,6 +20,7 @@ class Product {
         name: json['name'],
         description: json['description'],
         price: json['price'],
-        count: json['count']);
+        count: json['count'],
+        popularity: json['popularity']);
   }
 }

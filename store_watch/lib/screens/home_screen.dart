@@ -6,6 +6,8 @@ import 'package:store_watch/widgets/product_display.dart';
 import 'package:store_watch/widgets/top_deals.dart';
 import 'package:store_watch/widgets/type_watch.dart';
 
+import 'filter_screen.dart';
+
 class Home extends StatefulWidget {
   const Home({
     super.key,
@@ -51,9 +53,16 @@ class _HomeState extends State<Home> {
             ],
           ),
           centerTitle: true,
-          actions: const [
-            Icon(Icons.filter_list),
-            SizedBox(
+          actions: [
+            InkWell(
+              child: const Icon(Icons.filter_list),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FilterScreen(),
+                ));
+              },
+            ),
+            const SizedBox(
               width: 10,
             )
           ],
