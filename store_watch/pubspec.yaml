@@ -37,9 +37,6 @@ flutter:
         - asset: fonts/NotoSerif_SemiCondensed-SemiBold.ttf
     - family: Lora
       fonts:
-        - asset: store_watch\fonts\Lora-Regular.ttf
-          
-
-
-
+        - asset: fonts\Lora-Regular.ttf
+      
         
