@@ -22,154 +22,157 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 140,
-            left: 200,
-            child: Container(
-              child: Image.asset(
-                "assets/watch_login.png",
-                width: 200,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Positioned(
+                top: 140,
+                left: 200,
+                child: Image.asset(
+                  "assets/watch_login.png",
+                  width: 200,
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                    ),
-                    Image.asset(
-                      "assets/ads_logo.png",
-                      width: 100,
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 28,
-                    ),
-                    const Header(
-                        title: "Let's Sign up",
-                        subTitle: "Let's sign up to get rewards."),
-                    const SizedBox(height: 4),
-                    GlassTextFiled(
-                      hint: "Enter Username or Email",
-                      labelText: "Username or Email",
-                      icon: Icons.email_outlined,
-                      isPassword: false,
-                      controller: userNameOremailContrler,
-                    ),
-                    const SizedBox(height: 4),
-                    GlassTextFiled(
-                      hint: "Enter Name Here",
-                      labelText: "Full Name",
-                      icon: Icons.person_outlined,
-                      isPassword: false,
-                      controller: nameContrler,
-                    ),
-                    const SizedBox(height: 4),
-                    GlassTextFiled(
-                      hint: "Enter Password",
-                      labelText: "Password",
-                      icon: Icons.lock_outline,
-                      isPassword: true,
-                      controller: passwordContrler,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 14),
-                        child: PraimeryButton(
-                            buttonTitle: "Sign Up",
-                            onPressed: () {
-                              if (userNameOremailContrler.text.isNotEmpty &&
-                                  nameContrler.text.isNotEmpty &&
-                                  passwordContrler.text.isNotEmpty) {
-                                print("1");
-                                if (nameContrler.text.length > 2) {
-                                  print("2");
-                                  if (userNameOremailContrler.text
-                                          .contains('@') &&
-                                      userNameOremailContrler.text
-                                          .endsWith('.com')) {
-                                    email = userNameOremailContrler.text;
-                                    userName = "null";
-                                    print("email $email");
-                                    print("3");
-                                  } else {
-                                    email = "null";
-                                    userName = userNameOremailContrler.text;
-                                    print("here name $userName");
-                                    print("4");
-                                  }
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                        ),
+                        Image.asset(
+                          "assets/ads_logo.png",
+                          width: 100,
+                          height: 100,
+                        ),
+                        const SizedBox(
+                          height: 28,
+                        ),
+                        const Header(
+                            title: "Let's Sign up",
+                            subTitle: "Let's sign up to get rewards."),
+                        const SizedBox(height: 4),
+                        GlassTextFiled(
+                          hint: "Enter Username or Email",
+                          labelText: "Username or Email",
+                          icon: Icons.email_outlined,
+                          isPassword: false,
+                          controller: userNameOremailContrler,
+                        ),
+                        const SizedBox(height: 4),
+                        GlassTextFiled(
+                          hint: "Enter Name Here",
+                          labelText: "Full Name",
+                          icon: Icons.person_outlined,
+                          isPassword: false,
+                          controller: nameContrler,
+                        ),
+                        const SizedBox(height: 4),
+                        GlassTextFiled(
+                          hint: "Enter Password",
+                          labelText: "Password",
+                          icon: Icons.lock_outline,
+                          isPassword: true,
+                          controller: passwordContrler,
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 12, bottom: 14),
+                            child: PraimeryButton(
+                                buttonTitle: "Sign Up",
+                                onPressed: () {
+                                  if (userNameOremailContrler.text.isNotEmpty &&
+                                      nameContrler.text.isNotEmpty &&
+                                      passwordContrler.text.isNotEmpty) {
+                                    if (nameContrler.text.length > 2) {
+                                      if (userNameOremailContrler.text
+                                              .contains('@') &&
+                                          userNameOremailContrler.text
+                                              .endsWith('.com')) {
+                                        email = userNameOremailContrler.text;
+                                        userName = "null";
+                                      } else {
+                                        email = "null";
+                                        userName = userNameOremailContrler.text;
+                                      }
 
-                                  for (var customer in customerList) {
-                                    print(customer.email);
-                                    if (customer.email == email ||
-                                        customer.userName == userName) {
-                                      isFound = true;
+                                      for (var customer in customerList) {
+                                        if (customer.email == email ||
+                                            customer.userName == userName) {
+                                          isFound = true;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                            content: Text(
+                                                "This email or userName already used "),
+                                            backgroundColor: Color(0xffFF7779),
+                                          ));
+                                        }
+                                      }
+                                      if (!isFound) {
+                                        Customer newCustomer = Customer(
+                                          userName: userName,
+                                          email: email,
+                                          name: nameContrler.text,
+                                          password: passwordContrler.text,
+                                        );
+
+                                        customerList.add(newCustomer);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SignInUp(),
+                                            ));
+                                      }
+                                    } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                        content: Text(
-                                            "This email or userName already used "),
-                                        backgroundColor: Color(0xffFF7779),
-                                      ));
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            "Please enter correct name",
+                                          ),
+                                          backgroundColor: Color(0xffff8989),
+                                          padding: EdgeInsets.only(
+                                              top: 32, left: 16),
+                                        ),
+                                      );
                                     }
-                                  }
-                                  if (!isFound) {
-                                    Customer newCustomer = Customer(
-                                      userName: userName,
-                                      email: email,
-                                      name: nameContrler.text,
-                                      password: passwordContrler.text,
-                                    );
-
-                                    customerList.add(newCustomer);
-                                    print("6");
-                                    print(customerList.length);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SignInUp(),
-                                        ));
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        "Please enter correct name",
-                                      ),
-                                      backgroundColor: Color(0xffff8989),
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("Please complete all fields"),
                                       padding:
                                           EdgeInsets.only(top: 32, left: 16),
-                                    ),
-                                  );
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text("Please complete all fields"),
-                                  padding: EdgeInsets.only(top: 32, left: 16),
-                                  backgroundColor: Color(0xffff8989),
-                                ));
-                              }
-                            })),
-                    const SizedBox(height: 32),
-                    ButtonText(
-                      title: "Joined us before?",
-                      titleButton: " Sign in",
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignInUp())),
+                                      backgroundColor: Color(0xffff8989),
+                                    ));
+                                  }
+                                })),
+                        const SizedBox(height: 32),
+                        ButtonText(
+                          title: "Joined us before?",
+                          titleButton: " Sign in",
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignInUp())),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -37,10 +37,10 @@ class _ProfileTextFiledState extends State<ProfileTextFiled> {
             hintText: widget.hint,
             hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
             suffixIcon: Padding(
-              padding: EdgeInsets.only(right: 22),
+              padding: const EdgeInsets.only(right: 22),
               child: Icon(
                 widget.icon,
-                color: Color(0xff999799),
+                color: const Color(0xff999799),
               ),
             ),
           ),

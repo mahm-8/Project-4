@@ -11,13 +11,13 @@ class PraimeryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width - 40,
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: Color(0xfffcc873),
+          backgroundColor: const Color(0xfffcc873),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),

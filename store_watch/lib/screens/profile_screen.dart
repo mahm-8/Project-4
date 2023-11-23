@@ -3,9 +3,10 @@ import 'package:store_watch/data/global.dart';
 import 'package:store_watch/widgets/praimery_button.dart';
 import 'package:store_watch/widgets/profile_text_filed.dart';
 import 'package:badges/badges.dart' as badges;
+
 //3
 class Profile extends StatefulWidget {
-  Profile({super.key});
+  const Profile({super.key});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -23,6 +24,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,7 +91,7 @@ class _ProfileState extends State<Profile> {
               icon: Icons.lock_outlined,
               controller: passwordContrler,
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             PraimeryButton(

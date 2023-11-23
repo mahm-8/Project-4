@@ -18,23 +18,21 @@ class SignInUp extends StatefulWidget {
 
 class _SignInUpState extends State<SignInUp> {
   TextEditingController userNameOremailContrler = TextEditingController();
-
   TextEditingController passwordContrler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
             top: 140,
             left: 200,
-            child: Container(
-              child: Image.asset(
-                "assets/watch_login.png",
-                width: 200,
-              ),
+            child: Image.asset(
+              "assets/watch_login.png",
+              width: 200,
             ),
           ),
           Padding(
@@ -88,7 +86,6 @@ class _SignInUpState extends State<SignInUp> {
                         buttonTitle: "Sign in",
                         onPressed: () {
                           for (var customer in customerList) {
-                            print(customer.userName);
                             if (customer.userName ==
                                     userNameOremailContrler.text ||
                                 customer.email ==
@@ -96,16 +93,6 @@ class _SignInUpState extends State<SignInUp> {
                                     customer.password ==
                                         passwordContrler.text) {
                               currentCustomer = customer;
-                              print("2");
-
-                              /*Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Profile(),
-                                ),
-                                (route) => false,
-                              );   ;*/
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

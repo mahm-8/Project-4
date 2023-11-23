@@ -16,9 +16,9 @@ class ProductDisplayBySort extends StatelessWidget {
   List<Map<String, dynamic>> sortDataByPopularity(
       List<Map<String, dynamic>> data, String key) {
     dataSets.sort((a, b) {
-      int Popularity1 = a[key];
+      int popularity1 = a[key];
       int popularity2 = b[key];
-      return Popularity1.compareTo(popularity2);
+      return popularity1.compareTo(popularity2);
     });
     return data;
   }
@@ -68,6 +68,7 @@ class ProductDisplayBySort extends StatelessWidget {
                   );
                 })
             : GridView.builder(
+                reverse: true,
                 itemCount: sortedDataPopularity.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: 8, crossAxisSpacing: 8, crossAxisCount: 2),

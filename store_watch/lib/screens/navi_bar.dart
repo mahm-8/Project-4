@@ -28,7 +28,7 @@ class _NaviBarState extends State<NaviBar> {
     const Home(),
     const SearchScreen(),
     const OrderScreen(),
-    Profile()
+    const Profile()
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/screens/checkout_screen.dart';
 
 class AdressWidget extends StatefulWidget {
   const AdressWidget({super.key});
@@ -67,8 +66,8 @@ class _AdressWidgetState extends State<AdressWidget> {
                 "2972 Westheimer Rd,",
                 style: TextStyle(color: Color(0xffb5b2b2)),
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     Icons.phone_iphone,
                     color: Color(0xff0f141d),
