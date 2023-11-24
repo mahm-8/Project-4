@@ -1,6 +1,8 @@
 import 'package:store_watch/models/customer.dart';
 import 'package:store_watch/models/product.dart';
 
+import 'data_set.dart';
+
 List<Customer> customerList = [];
 late Customer currentCustomer;
 
@@ -22,9 +24,13 @@ void calculateGlobalPric() {
   }
 }
 
-int count = 0;
-int countGlobal() {
-  count++;
+List<Map<String, dynamic>> searchResults = dataSets;
 
-  return count;
+void searchProduct(String query) {
+  searchResults = dataSets
+      .where((product) => product["name"]
+          .toString()
+          .toLowerCase()
+          .contains(query.toLowerCase()))
+      .toList();
 }

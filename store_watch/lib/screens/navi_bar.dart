@@ -26,7 +26,7 @@ class _NaviBarState extends State<NaviBar> {
 
   final pages = [
     const Home(),
-    const SearchScreen(),
+    SearchScreen(),
     const OrderScreen(),
     const Profile()
   ];

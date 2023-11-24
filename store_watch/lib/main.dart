@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
 import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
+import 'package:store_watch/blocs/search_bloc/search_bloc.dart';
 import 'package:store_watch/screens/get_started_screen.dart';
 import 'package:store_watch/screens/navi_bar.dart';
 import 'package:store_watch/screens/signin_screen.dart';
@@ -23,6 +24,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CartBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchBloc(),
         ),
       ],
       child: MaterialApp(
