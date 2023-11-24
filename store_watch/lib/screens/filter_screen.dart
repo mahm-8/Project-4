@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/cart_bloc/bloc/cart_bloc.dart';
+import '../widgets/filter_category.dart';
+import '../widgets/sort_watch.dart';
 import '/screens/product_display_by_sort.dart';
 import '/widgets/button_widget.dart';
-import '../widgets/category_widget.dart';
 import '../widgets/text_title_widget.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -67,86 +70,7 @@ class _MyWidgetState extends State<FilterScreen> {
                 const SizedBox(
                   height: 18,
                 ),
-                Row(
-                  children: [
-                    CategortWidget(
-                      containerColor: containerType2 == 'All Watches'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'All Watches',
-                      containerWidth: 110,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType2 = 'All Watches';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType2 == 'Metallic'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Metallic',
-                      containerWidth: 100,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType2 = 'Metallic';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType2 == 'Leather'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Leather',
-                      containerWidth: 100,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType2 = 'Leather';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    CategortWidget(
-                      containerColor: containerType2 == 'Expensive'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Expensive',
-                      containerWidth: 100,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType2 = 'Expensive';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType2 == 'Classical'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Classical',
-                      containerWidth: 100,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType2 = 'Classical';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
+                const FilterCategory(),
                 const SizedBox(
                   height: 30,
                 ),
@@ -156,86 +80,7 @@ class _MyWidgetState extends State<FilterScreen> {
                 const SizedBox(
                   height: 18,
                 ),
-                Row(
-                  children: [
-                    CategortWidget(
-                      textContainer: 'Price',
-                      containerWidth: 80,
-                      containerHeight: 50,
-                      containerColor: containerType == 'price'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      onPressed: () {
-                        containerType = 'price';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType == 'Rating'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Rating',
-                      containerWidth: 90,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType = 'Rating';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType == 'popular'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Popularity',
-                      containerWidth: 110,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType = 'popular';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    CategortWidget(
-                      containerColor: containerType == 'popularity'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Top Selling',
-                      containerWidth: 120,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType = 'popularity';
-                        setState(() {});
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    CategortWidget(
-                      containerColor: containerType == 'Deals & Discounts'
-                          ? const Color(0xfffcc873)
-                          : const Color(0xfff3f3f3),
-                      textContainer: 'Deals & Discounts',
-                      containerWidth: 170,
-                      containerHeight: 50,
-                      onPressed: () {
-                        containerType = 'Deals & Discounts';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
+                const SortWatch(),
                 const SizedBox(
                   height: 30,
                 ),
@@ -261,38 +106,37 @@ class _MyWidgetState extends State<FilterScreen> {
                   },
                 ),
                 const Spacer(),
-                SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: ButtonWidget(
-                      textButton: 'Apply',
-                      onPressed: () {
-                        if (containerType == 'price') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductDisplayBySort(
-                                    containerType: containerType)),
-                          );
-                        } else if (containerType == 'popularity') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductDisplayBySort(
-                                    containerType: containerType)),
-                          );
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const AlertDialog(
-                                  content: Text(
-                                      "Please choose the sorting you prefer"),
-                                );
-                              });
-                        }
-                      },
-                    )),
+                BlocListener<CartBloc, CartState>(
+                  listener: (context, state) {
+                    if (state is SortCartState) {
+                      if (state.value == 'price') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductDisplayBySort(
+                                  containerType: containerType)),
+                        );
+                      } else if (state.value == 'popularity') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductDisplayBySort(
+                                  containerType: containerType)),
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const AlertDialog(
+                                content: Text(
+                                    "Please choose the sorting you prefer"),
+                              );
+                            });
+                      }
+                    }
+                  },
+                  child: const SizedBox(),
+                ),
               ],
             ),
           ),

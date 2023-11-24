@@ -1,128 +1,122 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/blocs/search_bloc/search_bloc.dart';
 import 'package:store_watch/data/global.dart';
 import 'package:store_watch/widgets/praimery_button.dart';
 import 'package:store_watch/widgets/profile_text_filed.dart';
 import 'package:badges/badges.dart' as badges;
 
 //3
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+class Profile extends StatelessWidget {
+  Profile({super.key});
 
-  @override
-  State<Profile> createState() => _ProfileState();
-}
+  final nameContrler = TextEditingController(text: currentCustomer.name);
 
-class _ProfileState extends State<Profile> {
-  TextEditingController nameContrler =
-      TextEditingController(text: currentCustomer.name);
-  TextEditingController mobileContrler = TextEditingController();
-  TextEditingController emailContrler =
-      TextEditingController(text: currentCustomer.email);
-  TextEditingController passwordContrler =
+  final mobileContrler = TextEditingController();
+
+  final emailContrler = TextEditingController(text: currentCustomer.email);
+
+  final passwordContrler =
       TextEditingController(text: currentCustomer.password);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: const Icon(
           Icons.keyboard_arrow_left_rounded,
-          color: Colors.black,
           size: 32,
         ),
+        centerTitle: true,
         title: const Text(
           "My Profile",
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: Colors.black,
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 32, bottom: 32),
-                child: badges.Badge(
-                  badgeAnimation: const badges.BadgeAnimation.fade(),
-                  badgeStyle: const badges.BadgeStyle(
-                    badgeColor: Color(0xfffcc873),
-                  ),
-                  badgeContent: const Icon(Icons.photo_camera_outlined),
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/profile_image.jpeg",
-                      width: 100,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 32),
+                  child: badges.Badge(
+                    badgeAnimation: const badges.BadgeAnimation.fade(),
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Color(0xfffcc873),
+                    ),
+                    badgeContent: const Icon(Icons.photo_camera_outlined),
+                    child: ClipOval(
+                      child: Image.asset(
+                        "assets/profile_image.jpeg",
+                        width: 100,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            ProfileTextFiled(
-              hint: 'Name',
-              labelText: 'Name',
-              isPassword: false,
-              controller: nameContrler,
-            ),
-            ProfileTextFiled(
-              hint: 'Mobile Number',
-              labelText: 'Mobile Number',
-              isPassword: false,
-              controller: mobileContrler,
-            ),
-            ProfileTextFiled(
-              hint: 'Email Address',
-              labelText: 'Email Address',
-              isPassword: false,
-              controller: emailContrler,
-            ),
-            ProfileTextFiled(
-              hint: 'Password',
-              labelText: 'Password',
-              isPassword: true,
-              icon: Icons.lock_outlined,
-              controller: passwordContrler,
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            PraimeryButton(
-                buttonTitle: "Update",
-                onPressed: () {
-                  if (nameContrler.text.isNotEmpty &&
-                      mobileContrler.text.isNotEmpty &&
-                      emailContrler.text.isNotEmpty &&
-                      passwordContrler.text.isNotEmpty) {
-                    currentCustomer.name = nameContrler.text;
-                    currentCustomer.mobileNumber =
-                        int.parse(mobileContrler.text);
-                    currentCustomer.email = emailContrler.text;
-                    currentCustomer.password = passwordContrler.text;
-
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              ProfileTextFiled(
+                hint: 'Name',
+                labelText: 'Name',
+                isPassword: false,
+                controller: nameContrler,
+              ),
+              ProfileTextFiled(
+                hint: 'Mobile Number',
+                labelText: 'Mobile Number',
+                isPassword: false,
+                controller: mobileContrler,
+              ),
+              ProfileTextFiled(
+                hint: 'Email Address',
+                labelText: 'Email Address',
+                isPassword: false,
+                controller: emailContrler,
+              ),
+              ProfileTextFiled(
+                hint: 'Password',
+                labelText: 'Password',
+                isPassword: true,
+                icon: Icons.lock_outlined,
+                controller: passwordContrler,
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              BlocListener<SearchBloc, SearchState>(
+                listener: (context, state) {
+                  if (state is SuccessesState) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(state.msg),
+                        backgroundColor: const Color(0xff85e62c),
+                        padding: const EdgeInsets.only(top: 32, left: 16)));
+                  } else if (state is ErrorState) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
-                          "Your profile was successfully updated",
+                          state.msg,
                         ),
-                        backgroundColor: Color(0xff85e62c),
-                        padding: EdgeInsets.only(top: 32, left: 16)));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                          "Please complete all fields",
-                        ),
-                        backgroundColor: Color(0xffff8989),
-                        padding: EdgeInsets.only(top: 32, left: 16)));
+                        backgroundColor: const Color(0xffff8989),
+                        padding: const EdgeInsets.only(top: 32, left: 16)));
                   }
-                })
-          ],
+                },
+                child: PraimeryButton(
+                    buttonTitle: "Update",
+                    onPressed: () {
+                      context.read<SearchBloc>().add(UpdateProfileEvent(
+                          nameContrler.text,
+                          mobileContrler.text,
+                          emailContrler.text,
+                          passwordContrler.text));
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

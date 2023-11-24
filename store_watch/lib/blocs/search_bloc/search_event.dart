@@ -7,3 +7,12 @@ class FindSearchEvent extends SearchEvent {
 
   FindSearchEvent(this.search);
 }
+
+class UpdateProfileEvent extends SearchEvent {
+  final String name;
+  final String phone;
+  final String email;
+  final String password;
+
+  UpdateProfileEvent(this.name, this.phone, this.email, this.password);
+}

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/product.dart';
-import 'package:store_watch/screens/order_screen.dart';
 
 import '../blocs/cart_bloc/bloc/cart_bloc.dart';
 

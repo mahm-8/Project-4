@@ -9,3 +9,15 @@ class SearchFindState extends SearchState {
 
   SearchFindState(this.searchResults);
 }
+
+class ErrorState extends SearchState {
+  final String msg;
+
+  ErrorState(this.msg);
+}
+
+class SuccessesState extends SearchState {
+  final String msg;
+
+  SuccessesState(this.msg);
+}

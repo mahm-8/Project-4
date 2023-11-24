@@ -33,3 +33,43 @@ class DeleteCartEvent extends CartEvent {
 
   DeleteCartEvent({required this.product});
 }
+
+class RadioCartEvent extends CartEvent {
+  int value;
+
+  RadioCartEvent(
+    this.value,
+  );
+}
+
+class PageCartEvent extends CartEvent {
+  int value;
+
+  PageCartEvent(
+    this.value,
+  );
+}
+
+class FilterCartEvent extends CartEvent {
+  final int value;
+
+  FilterCartEvent(
+    this.value,
+  );
+}
+
+class SortCartEvent extends CartEvent {
+  final int value;
+
+  SortCartEvent(
+    this.value,
+  );
+}
+
+class PagesEvent extends CartEvent {
+  final int value;
+
+  PagesEvent(
+    this.value,
+  );
+}

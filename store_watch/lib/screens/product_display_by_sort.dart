@@ -30,6 +30,11 @@ class ProductDisplayBySort extends StatelessWidget {
         sortDataByPopularity(dataSets, 'popularity');
 
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: containerType == 'price'

@@ -23,13 +23,6 @@ class DisplayOrder extends StatelessWidget {
                     context
                         .read<CartBloc>()
                         .add(DeleteCartEvent(product: orderProducts[index]));
-                    // orderProducts[index].count = 0;
-                    // globalPrice = globalPrice -
-                    //     (double.parse(orderProducts[index].price) *
-                    //         orderProducts[index].count!);
-                    // orderProducts.remove(orderProducts[index]);
-                    //
-                    // setState(() {});
                   },
                   child: OrderWidget(
                     product: orderProducts[index],

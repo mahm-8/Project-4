@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyCard extends StatefulWidget {
-  const MyCard(
+import '../blocs/cart_bloc/bloc/cart_bloc.dart';
+
+class MyCard extends StatelessWidget {
+  MyCard(
       {super.key,
       this.onTap,
       required this.name,
       required this.loc,
       required this.phone});
+
   final void Function()? onTap;
   final String name;
   final String loc;
   final String phone;
 
-  @override
-  State<MyCard> createState() => _MyCardState();
-}
-
-class _MyCardState extends State<MyCard> {
   int groupValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: SizedBox(
         width: 250,
         //height: 180,
@@ -33,14 +33,31 @@ class _MyCardState extends State<MyCard> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Radio(
-                      activeColor: const Color(0xfffcc873),
-                      value: 1,
-                      groupValue: groupValue,
-                      onChanged: (value) {
-                        setState(() {
-                          groupValue = value!;
-                        });
+                    child: BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is RadioCartState) {
+                          return Radio(
+                            activeColor: const Color(0xfffcc873),
+                            value: state.value,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              context
+                                  .read<CartBloc>()
+                                  .add(RadioCartEvent(value!));
+                            },
+                          );
+                        } else {
+                          return Radio(
+                            activeColor: const Color(0xfffcc873),
+                            value: 1,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              context
+                                  .read<CartBloc>()
+                                  .add(RadioCartEvent(value!));
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -50,7 +67,7 @@ class _MyCardState extends State<MyCard> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      widget.name,
+                      name,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -71,7 +88,7 @@ class _MyCardState extends State<MyCard> {
               ),
               const SizedBox(height: 5),
               Text(
-                widget.loc,
+                loc,
                 style: const TextStyle(color: Color(0xffb5b2b2)),
               ),
               Padding(
@@ -84,7 +101,7 @@ class _MyCardState extends State<MyCard> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      widget.phone,
+                      phone,
                       style: const TextStyle(color: Color(0xff4a4e54)),
                     ),
                   ],

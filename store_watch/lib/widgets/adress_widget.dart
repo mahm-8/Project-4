@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AdressWidget extends StatefulWidget {
-  const AdressWidget({super.key});
+class AdressWidget extends StatelessWidget {
+  AdressWidget({super.key});
 
-  @override
-  State<AdressWidget> createState() => _AdressWidgetState();
-}
-
-class _AdressWidgetState extends State<AdressWidget> {
   int groupValue = 1;
 
   String getGroup() {

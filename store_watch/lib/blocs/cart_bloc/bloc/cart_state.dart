@@ -16,3 +16,27 @@ final class PriceState extends CartState {
 
   PriceState(this.price);
 }
+
+final class RadioCartState extends CartState {
+  final int value;
+
+  RadioCartState(this.value);
+}
+
+final class CategoryCartState extends CartState {
+  final String value;
+
+  CategoryCartState(this.value);
+}
+
+final class SortCartState extends CartState {
+  final String value;
+
+  SortCartState(this.value);
+}
+
+final class PagesState extends CartState {
+  final int value;
+
+  PagesState(this.value);
+}

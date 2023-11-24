@@ -50,5 +50,97 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
       emit(CartInitial());
     });
+    on<RadioCartEvent>((event, emit) {
+      if (event.value == 0) {
+        event.value = 1;
+        emit(RadioCartState(event.value));
+      } else if (event.value == 1) {
+        event.value = 0;
+        emit(RadioCartState(event.value));
+      }
+    });
+    on<FilterCartEvent>((event, emit) {
+      switch (event.value) {
+        case 0:
+          {
+            emit(CategoryCartState('All Watches'));
+          }
+          break;
+        case 1:
+          {
+            emit(CategoryCartState('Metallic'));
+          }
+          break;
+        case 2:
+          {
+            emit(CategoryCartState('Leather'));
+          }
+          break;
+        case 3:
+          {
+            emit(CategoryCartState('Expensive'));
+          }
+          break;
+        case 4:
+          {
+            emit(CategoryCartState('Classical'));
+          }
+          break;
+      }
+    });
+
+    on<SortCartEvent>((event, emit) {
+      switch (event.value) {
+        case 0:
+          {
+            emit(SortCartState('price'));
+          }
+          break;
+        case 1:
+          {
+            emit(SortCartState('Rating'));
+          }
+          break;
+        case 2:
+          {
+            emit(SortCartState('popular'));
+          }
+          break;
+        case 3:
+          {
+            emit(SortCartState('popularity'));
+          }
+          break;
+        case 4:
+          {
+            emit(SortCartState('Deals & Discounts'));
+          }
+          break;
+      }
+    });
+    on<PageCartEvent>((event, emit) {
+      switch (event.value) {
+        case 0:
+          {
+            emit(PagesState(0));
+          }
+          break;
+        case 1:
+          {
+            emit(PagesState(1));
+          }
+          break;
+        case 2:
+          {
+            emit(PagesState(2));
+          }
+          break;
+        case 3:
+          {
+            emit(PagesState(3));
+          }
+          break;
+      }
+    });
   }
 }

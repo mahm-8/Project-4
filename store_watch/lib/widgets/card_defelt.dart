@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardDefelt extends StatefulWidget {
-  const CardDefelt({super.key, this.onTap});
+import '../blocs/cart_bloc/bloc/cart_bloc.dart';
+
+class CardDefelt extends StatelessWidget {
+  const CardDefelt({super.key, this.onTap, required this.groupValue});
   final void Function()? onTap;
-  @override
-  State<CardDefelt> createState() => _CardDefeltState();
-}
+  final int groupValue;
 
-class _CardDefeltState extends State<CardDefelt> {
-  int groupValue = 0;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: SizedBox(
         width: 250,
         //height: 180,
@@ -24,14 +23,31 @@ class _CardDefeltState extends State<CardDefelt> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Radio(
-                      activeColor: const Color(0xfffcc873),
-                      value: 1,
-                      groupValue: groupValue,
-                      onChanged: (value) {
-                        setState(() {
-                          groupValue = value!;
-                        });
+                    child: BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is RadioCartState) {
+                          return Radio(
+                            activeColor: const Color(0xfffcc873),
+                            value: state.value,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              context
+                                  .read<CartBloc>()
+                                  .add(RadioCartEvent(value!));
+                            },
+                          );
+                        } else {
+                          return Radio(
+                            activeColor: const Color(0xfffcc873),
+                            value: 0,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              context
+                                  .read<CartBloc>()
+                                  .add(RadioCartEvent(value!));
+                            },
+                          );
+                        }
                       },
                     ),
                   ),

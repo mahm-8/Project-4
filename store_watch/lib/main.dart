@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
 import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:store_watch/blocs/search_bloc/search_bloc.dart';
-import 'package:store_watch/screens/get_started_screen.dart';
-import 'package:store_watch/screens/navi_bar.dart';
-import 'package:store_watch/screens/signin_screen.dart';
+import 'package:store_watch/blocs/theme_bloc/theme_bloc.dart';
 import 'package:store_watch/screens/signup_screen.dart';
 
-void main() {
+SharedPreferences? prefs;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
   runApp(const MainApp());
 }
 
@@ -28,11 +31,21 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchBloc(),
         ),
+        BlocProvider(
+          create: (context) => ThemeBloc(),
+        ),
       ],
-      child: MaterialApp(
-        theme: ThemeData(useMaterial3: false),
-        debugShowCheckedModeBanner: false,
-        home: SignUp(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          if (state is ThemeInitial) {
+            return MaterialApp(
+              theme: state.themeData,
+              debugShowCheckedModeBanner: false,
+              home: SignUp(),
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

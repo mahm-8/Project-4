@@ -90,7 +90,7 @@ class _MyWidgetState extends State<CheckoutScreen> {
                       ? Wrap(
                           spacing: 10.0,
                           runSpacing: 10.0,
-                          children: List.generate(2, (index) {
+                          children: List.generate(3, (index) {
                             return CardDefelt(
                               onTap: () => showModalBottomSheet(
                                 context: context,
@@ -98,6 +98,7 @@ class _MyWidgetState extends State<CheckoutScreen> {
                                   return addData();
                                 },
                               ),
+                              groupValue: index,
                             );
                           }),
                         )

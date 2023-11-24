@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
@@ -10,22 +12,17 @@ import 'package:store_watch/widgets/image_button.dart';
 import 'package:store_watch/widgets/praimery_button.dart';
 
 //4
-class SignInUp extends StatefulWidget {
-  const SignInUp({super.key});
+class SignInUp extends StatelessWidget {
+  SignInUp({super.key});
 
-  @override
-  State<SignInUp> createState() => _SignInUpState();
-}
-
-class _SignInUpState extends State<SignInUp> {
   TextEditingController userNameOremailContrler = TextEditingController();
+
   TextEditingController passwordContrler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
@@ -81,37 +78,34 @@ class _SignInUpState extends State<SignInUp> {
                             color: Color(0xff364c75)),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12, bottom: 14),
-                      child: BlocConsumer<AuthBloc, AuthState>(
-                        listener: (context, state) {
-                          if (state is AuthInitial) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const NaviBar(),
-                                ),
-                                (route) => false);
-                          } else if (state is ErrorState) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(state.msg),
-                                backgroundColor: const Color(0xffff8989),
-                                padding: const EdgeInsets.only(top: 32, left: 16),
+                    BlocListener<AuthBloc, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthInitial) {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NaviBar(),
                               ),
-                            );
-                          }
-                        },
-                        builder: (context, state) {
-                          return PraimeryButton(
-                            buttonTitle: "Sign in",
-                            onPressed: () {
-                              context.read<AuthBloc>().add(LogInEvent(
-                                  userNameOremailContrler.text,
-                                  passwordContrler.text));
-                            },
+                              (route) => false);
+                        } else if (state is ErrorState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.msg),
+                              backgroundColor: const Color(0xffff8989),
+                            ),
                           );
-                        },
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 14),
+                        child: PraimeryButton(
+                          buttonTitle: "Sign in",
+                          onPressed: () {
+                            context.read<AuthBloc>().add(LogInEvent(
+                                userNameOremailContrler.text,
+                                passwordContrler.text));
+                          },
+                        ),
                       ),
                     ),
                     const Align(

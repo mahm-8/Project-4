@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/main.dart';
 import 'package:store_watch/widgets/product_display.dart';
 import 'package:store_watch/widgets/top_deals.dart';
 import 'package:store_watch/widgets/type_watch.dart';
 
+import '../blocs/theme_bloc/theme_bloc.dart';
 import 'filter_screen.dart';
 
 class Home extends StatelessWidget {
@@ -14,12 +17,15 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          foregroundColor: const Color(0xff233b67),
-          elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.menu_rounded),
-            onPressed: () {},
+            icon: Icon(
+              Icons.light_mode_outlined,
+            ),
+            onPressed: () {
+              prefs?.getString("theme") == 'dark'
+                  ? context.read<ThemeBloc>().add(ChangeThemeEvent("light"))
+                  : context.read<ThemeBloc>().add(ChangeThemeEvent("dark"));
+            },
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,

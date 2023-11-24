@@ -20,7 +20,6 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -91,11 +90,11 @@ class SignUp extends StatelessWidget {
                                     content: Text(state.msg),
                                     backgroundColor: const Color(0xffFF7779),
                                   ));
-                                } else if(state is AuthInitial) {
+                                } else if (state is AuthInitial) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const SignInUp(),
+                                        builder: (context) => SignInUp(),
                                       ));
                                 }
                               },
@@ -117,7 +116,7 @@ class SignUp extends StatelessWidget {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignInUp())),
+                                  builder: (context) => SignInUp())),
                         ),
                       ],
                     ),

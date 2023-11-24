@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/search_bloc/search_bloc.dart';
-import '../data/data_set.dart';
 import '../widgets/search_widget.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -13,7 +12,6 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -25,16 +23,6 @@ class SearchScreen extends StatelessWidget {
               child: Material(
                 shadowColor: const Color.fromARGB(255, 201, 191, 191),
                 child: Container(
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffefefef),
-                        spreadRadius: 5,
-                        blurRadius: 12,
-                        offset: Offset(0, 6),
-                      ),
-                    ],
-                  ),
                   child: TextField(
                     controller: controller,
                     onChanged: (query) {
@@ -88,15 +76,14 @@ class SearchScreen extends StatelessWidget {
                       height: 100,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
-                          color: const Color(0xfff9f8f8)),
+                          color: Colors.grey),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
                             Text(
                               product["name"],
-                              style: const TextStyle(
-                                  fontSize: 18, color: Colors.black),
+                              style: const TextStyle(fontSize: 18),
                             ),
                             const SizedBox(
                               height: 10,
@@ -112,7 +99,8 @@ class SearchScreen extends StatelessWidget {
                             Text(
                               product['price'],
                               style: const TextStyle(
-                                  fontSize: 16, color: Colors.black),
+                                fontSize: 16,
+                              ),
                             ),
                           ],
                         ),
