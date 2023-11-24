@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:store_watch/data/global.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
 import 'package:store_watch/screens/navi_bar.dart';
 import 'package:store_watch/screens/signup_screen.dart';
 import 'package:store_watch/widgets/button_text.dart';
@@ -82,33 +83,33 @@ class _SignInUpState extends State<SignInUp> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 12, bottom: 14),
-                      child: PraimeryButton(
-                        buttonTitle: "Sign in",
-                        onPressed: () {
-                          for (var customer in customerList) {
-                            if (customer.userName ==
-                                    userNameOremailContrler.text ||
-                                customer.email ==
-                                        userNameOremailContrler.text &&
-                                    customer.password ==
-                                        passwordContrler.text) {
-                              currentCustomer = customer;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const NaviBar(),
-                                  ));
-                            }
-                            return;
+                      child: BlocConsumer<AuthBloc, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthInitial) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const NaviBar(),
+                                ),
+                                (route) => false);
+                          } else if (state is ErrorState) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(state.msg),
+                                backgroundColor: const Color(0xffff8989),
+                                padding: const EdgeInsets.only(top: 32, left: 16),
+                              ),
+                            );
                           }
-//
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "Please enter correct username or email"),
-                              backgroundColor: Color(0xffff8989),
-                              padding: EdgeInsets.only(top: 32, left: 16),
-                            ),
+                        },
+                        builder: (context, state) {
+                          return PraimeryButton(
+                            buttonTitle: "Sign in",
+                            onPressed: () {
+                              context.read<AuthBloc>().add(LogInEvent(
+                                  userNameOremailContrler.text,
+                                  passwordContrler.text));
+                            },
                           );
                         },
                       ),

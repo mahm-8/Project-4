@@ -29,13 +29,6 @@ class _MyWidgetState extends State<CheckoutScreen> {
   TextEditingController textPhone2 = TextEditingController();
   final String m3 = "775060+65+";
 
-  @override
-  void initState() {
-    super.initState();
-    // deliveryInfo;
-    // deliveryInfo2;
-  }
-
   bool isEmpty = false;
   @override
   Widget build(BuildContext context) {

@@ -3,18 +3,13 @@ import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/product.dart';
 import 'package:store_watch/screens/detalis.dart';
 
-class ProdectWidget extends StatefulWidget {
+class ProdectWidget extends StatelessWidget {
   const ProdectWidget({
     super.key,
     required this.product,
   });
   final Product product;
 
-  @override
-  State<ProdectWidget> createState() => _ProdectWidgetState();
-}
-
-class _ProdectWidgetState extends State<ProdectWidget> {
   @override
   Widget build(BuildContext context) {
     calculateGlobalPrice();
@@ -26,12 +21,11 @@ class _ProdectWidgetState extends State<ProdectWidget> {
         child: Stack(children: [
           InkWell(
             onTap: () {
-              setState(() {});
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Detalis(
-                      product: widget.product,
+                      product: product,
                     ),
                   ));
             },
@@ -55,7 +49,7 @@ class _ProdectWidgetState extends State<ProdectWidget> {
                       top: 20,
                     ),
                     child: Image.asset(
-                      widget.product.image,
+                      product.image,
                       cacheHeight: 200,
                       cacheWidth: 150,
                     ),
@@ -63,14 +57,14 @@ class _ProdectWidgetState extends State<ProdectWidget> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      widget.product.name,
+                      product.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Color(0xff233b67)),
                     ),
                   ),
-                  Text('\$ ${widget.product.price}',
+                  Text('\$ ${product.price}',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16)),
                 ],

@@ -1,36 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/product.dart';
 import 'package:store_watch/screens/order_screen.dart';
 
-class Detalis extends StatefulWidget {
-  const Detalis({super.key, required this.product});
+class Detalis extends StatelessWidget {
+  Detalis({super.key, required this.product});
   final Product product;
-  @override
-  State<Detalis> createState() => _DetalisState();
-}
-
-class _DetalisState extends State<Detalis> {
-  double globalPrice = 0;
   int count = 1;
   @override
-  void initState() {
-    super.initState();
-    globalPrice = double.parse(widget.product.price);
-    count = 1;
-  }
-  @override
   Widget build(BuildContext context) {
-    calculateGlobalPrice();
+    // calculateGlobalPrice();
     return Scaffold(
       floatingActionButton: ElevatedButton(
         onPressed: () {
-          if (!orderProducts.contains(widget.product)) {
-            orderProducts.add(widget.product);
-            widget.product.count = widget.product.count! + count;
-          } else {
-            widget.product.count = widget.product.count! + count;
-          }
+          context.read<CartBloc>().add(AddCartEvent(product));
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -74,7 +59,7 @@ class _DetalisState extends State<Detalis> {
             Navigator.pop(context);
           },
         ),
-        title: Text(widget.product.name),
+        title: Text(product.name),
         centerTitle: true,
         actions: const [Icon(Icons.shopping_bag_outlined)],
       ),
@@ -97,7 +82,7 @@ class _DetalisState extends State<Detalis> {
                         Color.fromARGB(80, 255, 255, 255),
                       ]),
                   borderRadius: BorderRadius.circular(15)),
-              child: Image.asset(widget.product.image),
+              child: Image.asset(product.image),
             ),
           ),
           Padding(
@@ -109,7 +94,7 @@ class _DetalisState extends State<Detalis> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.product.name,
+                      product.name,
                       style: const TextStyle(
                           fontFamily: 'Lora',
                           fontSize: 28,
@@ -118,11 +103,20 @@ class _DetalisState extends State<Detalis> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text('\$ ${globalPrice.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                            fontFamily: 'Lora',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold))
+                    BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+                      if (state is PriceState) {
+                        return Text('\$ ${state.price}',
+                            style: const TextStyle(
+                                fontFamily: 'Lora',
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold));
+                      }
+                      return Text('\$ ${product.price}',
+                          style: const TextStyle(
+                              fontFamily: 'Lora',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold));
+                    })
                   ],
                 ),
                 Row(
@@ -134,22 +128,21 @@ class _DetalisState extends State<Detalis> {
                           shape: BoxShape.circle, color: Colors.orange[200]),
                       child: InkWell(
                           onTap: () {
-                            if (count > 1) {
-                              count--;
-
-                              globalPrice =
-                                  (double.parse(widget.product.price) *
-                                      count.toDouble());
-                            }
-                            setState(() {});
+                            context
+                                .read<CartBloc>()
+                                .add(DecreaseEvent(product));
                           },
                           child: const Icon(Icons.remove)),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        count.toString(),
-                        style: const TextStyle(fontSize: 18),
+                      child: BlocBuilder<CartBloc, CartState>(
+                        builder: (context, state) {
+                          return Text(
+                            '${product.count}',
+                            style: const TextStyle(fontSize: 18),
+                          );
+                        },
                       ),
                     ),
                     Container(
@@ -159,12 +152,9 @@ class _DetalisState extends State<Detalis> {
                           shape: BoxShape.circle, color: Colors.orange[200]),
                       child: InkWell(
                           onTap: () {
-                            count++;
-
-                            globalPrice = (double.parse(widget.product.price) *
-                                count.toDouble());
-
-                            setState(() {});
+                            context
+                                .read<CartBloc>()
+                                .add(IncreaseEvent(product));
                           },
                           child: const Icon(Icons.add)),
                     )
@@ -176,7 +166,7 @@ class _DetalisState extends State<Detalis> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              widget.product.description,
+              product.description,
               style: const TextStyle(fontFamily: 'Lora', color: Colors.grey),
             ),
           ),

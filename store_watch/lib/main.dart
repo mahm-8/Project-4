@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
+import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:store_watch/screens/get_started_screen.dart';
 import 'package:store_watch/screens/navi_bar.dart';
+import 'package:store_watch/screens/signin_screen.dart';
+import 'package:store_watch/screens/signup_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,10 +16,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: false),
-      debugShowCheckedModeBanner: false,
-      home: NaviBar(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(useMaterial3: false),
+        debugShowCheckedModeBanner: false,
+        home: SignUp(),
+      ),
     );
   }
 }

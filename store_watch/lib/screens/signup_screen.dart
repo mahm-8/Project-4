@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:store_watch/data/global.dart';
-import 'package:store_watch/models/customer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
 import 'package:store_watch/screens/signin_screen.dart';
 import 'package:store_watch/widgets/button_text.dart';
 import 'package:store_watch/widgets/header.dart';
@@ -15,9 +15,6 @@ class SignUp extends StatelessWidget {
   TextEditingController userNameOremailContrler = TextEditingController();
   TextEditingController nameContrler = TextEditingController();
   TextEditingController passwordContrler = TextEditingController();
-  bool isFound = false;
-  late String email;
-  late String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -86,76 +83,33 @@ class SignUp extends StatelessWidget {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(top: 12, bottom: 14),
-                            child: PraimeryButton(
-                                buttonTitle: "Sign Up",
-                                onPressed: () {
-                                  if (userNameOremailContrler.text.isNotEmpty &&
-                                      nameContrler.text.isNotEmpty &&
-                                      passwordContrler.text.isNotEmpty) {
-                                    if (nameContrler.text.length > 2) {
-                                      if (userNameOremailContrler.text
-                                              .contains('@') &&
-                                          userNameOremailContrler.text
-                                              .endsWith('.com')) {
-                                        email = userNameOremailContrler.text;
-                                        userName = "null";
-                                      } else {
-                                        email = "null";
-                                        userName = userNameOremailContrler.text;
-                                      }
-
-                                      for (var customer in customerList) {
-                                        if (customer.email == email ||
-                                            customer.userName == userName) {
-                                          isFound = true;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content: Text(
-                                                "This email or userName already used "),
-                                            backgroundColor: Color(0xffFF7779),
-                                          ));
-                                        }
-                                      }
-                                      if (!isFound) {
-                                        Customer newCustomer = Customer(
-                                          userName: userName,
-                                          email: email,
-                                          name: nameContrler.text,
-                                          password: passwordContrler.text,
-                                        );
-
-                                        customerList.add(newCustomer);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SignInUp(),
-                                            ));
-                                      }
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            "Please enter correct name",
-                                          ),
-                                          backgroundColor: Color(0xffff8989),
-                                          padding: EdgeInsets.only(
-                                              top: 32, left: 16),
-                                        ),
-                                      );
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text("Please complete all fields"),
-                                      padding:
-                                          EdgeInsets.only(top: 32, left: 16),
-                                      backgroundColor: Color(0xffff8989),
-                                    ));
-                                  }
-                                })),
+                            child: BlocConsumer<AuthBloc, AuthState>(
+                              listener: (context, state) {
+                                if (state is ErrorState) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(state.msg),
+                                    backgroundColor: const Color(0xffFF7779),
+                                  ));
+                                } else if(state is AuthInitial) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const SignInUp(),
+                                      ));
+                                }
+                              },
+                              builder: (context, state) {
+                                return PraimeryButton(
+                                    buttonTitle: "Sign Up",
+                                    onPressed: () {
+                                      context.read<AuthBloc>().add(SignUpEvent(
+                                          nameContrler.text,
+                                          userNameOremailContrler.text,
+                                          passwordContrler.text));
+                                    });
+                              },
+                            )),
                         const SizedBox(height: 32),
                         ButtonText(
                           title: "Joined us before?",
@@ -177,35 +131,3 @@ class SignUp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-/*
-  final GlobalKey<FlutterPwValidatorState> validatorKey =
-      GlobalKey<FlutterPwValidatorState>();
- FlutterPwValidator(
-                        key: validatorKey,
-                        controller: passwordContrler,
-                        minLength: 8,
-                        uppercaseCharCount: 2,
-                        lowercaseCharCount: 3,
-                        numericCharCount: 3,
-                        specialCharCount: 1,
-                        normalCharCount: 3,
-                        width: 320,
-                        height: 320,
-                        onSuccess: () {
-                          print("MATCHED");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              new SnackBar(
-                                  content: new Text("Password is matched")));
-                        },
-                        onFail: () {
-                          print("NOT MATCHED");
-                        },
-                      ),
-                      */

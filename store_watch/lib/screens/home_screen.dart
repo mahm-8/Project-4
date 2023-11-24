@@ -1,30 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:store_watch/data/data_set.dart';
-import 'package:store_watch/data/global.dart';
-import 'package:store_watch/models/product.dart';
 import 'package:store_watch/widgets/product_display.dart';
 import 'package:store_watch/widgets/top_deals.dart';
 import 'package:store_watch/widgets/type_watch.dart';
 
 import 'filter_screen.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({
     super.key,
   });
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    for (var element in dataSets) {
-      listProduct.add(Product.fromJson(element));
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

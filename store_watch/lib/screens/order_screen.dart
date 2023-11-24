@@ -14,7 +14,6 @@ class OrderScreen extends StatefulWidget {
 class OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
-    calculateGlobalPric();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

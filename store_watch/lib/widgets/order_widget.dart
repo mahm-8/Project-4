@@ -3,16 +3,10 @@ import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/product.dart';
 import 'package:store_watch/widgets/order_add_remove.dart';
 
-class OrderWidget extends StatefulWidget {
+class OrderWidget extends StatelessWidget {
   const OrderWidget({super.key, required this.product});
 
   final Product product;
-
-  @override
-  State<OrderWidget> createState() => OrderWidgetState();
-}
-
-class OrderWidgetState extends State<OrderWidget> {
   @override
   Widget build(BuildContext context) {
     calculateGlobalPrice();
@@ -33,7 +27,7 @@ class OrderWidgetState extends State<OrderWidget> {
                     ]),
                 borderRadius: BorderRadius.circular(15)),
             child: Image.asset(
-              widget.product.image,
+              product.image,
               cacheWidth: 100,
               cacheHeight: 100,
             ),
@@ -44,7 +38,7 @@ class OrderWidgetState extends State<OrderWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.product.name,
+                Text(product.name,
                     style: const TextStyle(
                         color: Color(0xff233b67),
                         fontWeight: FontWeight.bold,
@@ -52,11 +46,11 @@ class OrderWidgetState extends State<OrderWidget> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    widget.product.description.substring(0, 37),
+                    product.description.substring(0, 37),
                   ),
                 ),
                 Text(
-                  '\$${(double.parse(widget.product.price) * widget.product.count).toStringAsFixed(2)}',
+                  '\$${(double.parse(product.price) * product.count).toStringAsFixed(2)}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 18),
                 )
@@ -65,7 +59,7 @@ class OrderWidgetState extends State<OrderWidget> {
           ),
           const Spacer(),
           OrderAddRemove(
-            product: widget.product,
+            product: product,
           )
         ],
       ),
