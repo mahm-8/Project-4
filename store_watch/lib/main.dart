@@ -3,13 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_watch/blocs/auth_bloc/bloc/auth_bloc.dart';
 import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
+import 'package:store_watch/blocs/navi_bloc/navi_bloc.dart';
 import 'package:store_watch/blocs/search_bloc/search_bloc.dart';
 import 'package:store_watch/blocs/theme_bloc/theme_bloc.dart';
 import 'package:store_watch/screens/signup_screen.dart';
 
+import 'helper/observer.dart';
+
 SharedPreferences? prefs;
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   runApp(const MainApp());
@@ -22,6 +26,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => NaviBloc()),
         BlocProvider(
           create: (context) => AuthBloc(),
         ),

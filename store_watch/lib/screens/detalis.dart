@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
-import 'package:store_watch/data/global.dart';
 import 'package:store_watch/models/product.dart';
 import 'package:store_watch/screens/order_screen.dart';
 
-class Detalis extends StatelessWidget {
-  Detalis({super.key, required this.product});
+class Details extends StatelessWidget {
+  Details({super.key, required this.product});
   final Product product;
   int count = 1;
   @override

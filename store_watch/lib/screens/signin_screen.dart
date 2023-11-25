@@ -15,9 +15,9 @@ import 'package:store_watch/widgets/praimery_button.dart';
 class SignInUp extends StatelessWidget {
   SignInUp({super.key});
 
-  TextEditingController userNameOremailContrler = TextEditingController();
+  TextEditingController userNameOrEmailController = TextEditingController();
 
-  TextEditingController passwordContrler = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +60,14 @@ class SignInUp extends StatelessWidget {
                       labelText: "Username or Email",
                       icon: Icons.email_outlined,
                       isPassword: false,
-                      controller: userNameOremailContrler,
+                      controller: userNameOrEmailController,
                     ),
                     GlassTextFiled(
                       hint: "Enter Password",
                       labelText: "Password",
                       icon: Icons.lock_outline,
                       isPassword: true,
-                      controller: passwordContrler,
+                      controller: passwordController,
                     ),
                     const Align(
                       alignment: Alignment.centerRight,
@@ -102,8 +102,8 @@ class SignInUp extends StatelessWidget {
                           buttonTitle: "Sign in",
                           onPressed: () {
                             context.read<AuthBloc>().add(LogInEvent(
-                                userNameOremailContrler.text,
-                                passwordContrler.text));
+                                userNameOrEmailController.text,
+                                passwordController.text));
                           },
                         ),
                       ),

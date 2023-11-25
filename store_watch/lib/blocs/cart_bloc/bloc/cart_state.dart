@@ -17,6 +17,8 @@ final class PriceState extends CartState {
   PriceState(this.price);
 }
 
+class DeleteCartState extends CartState {}
+
 final class RadioCartState extends CartState {
   final int value;
 

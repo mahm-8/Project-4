@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../blocs/cart_bloc/bloc/cart_bloc.dart';
 import '../widgets/filter_category.dart';
 import '../widgets/sort_watch.dart';
 import '/screens/product_display_by_sort.dart';
-import '/widgets/button_widget.dart';
 import '../widgets/text_title_widget.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -24,35 +22,12 @@ class _MyWidgetState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffffffff),
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          backgroundColor: Colors.transparent,
-          leading: InkWell(
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Color(0xff141922),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
           title: const Text(
             "Filter",
-            style: TextStyle(color: Color(0xff141922)),
           ),
-          actions: [
-            InkWell(
-              child: const Icon(
-                Icons.close,
-                color: Color(0xff141922),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
         ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,

@@ -29,6 +29,15 @@ class OrderAddRemove extends StatelessWidget {
         ),
         BlocBuilder<CartBloc, CartState>(
           builder: (context, state) {
+            if (state is DeleteCartState) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  product.count.toString(),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Text(

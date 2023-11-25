@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_watch/data/global.dart';
 import 'package:store_watch/screens/checkout_screen.dart';
 import 'package:store_watch/widgets/display_order.dart';
 import 'package:store_watch/widgets/two_text.dart';
+
+import '../blocs/cart_bloc/bloc/cart_bloc.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -12,7 +15,6 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -30,12 +32,21 @@ class OrderScreen extends StatelessWidget {
         child: Column(
           children: [
             const DisplayOrder(),
-            TwoText(
-                leftText: 'Total Price',
-                rightText: '\$ ${globalPrice.toStringAsFixed(2)}'),
-            TwoText(
-                leftText: 'Discount',
-                rightText: '\$ ${((globalPrice * 0.08)).toStringAsFixed(2)}'),
+            BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                return TwoText(
+                    leftText: 'Total Price',
+                    rightText: '\$ ${globalPrice.toStringAsFixed(2)}');
+              },
+            ),
+            BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                return TwoText(
+                    leftText: 'Discount',
+                    rightText:
+                        '\$ ${((globalPrice * 0.08)).toStringAsFixed(2)}');
+              },
+            ),
             TwoText(
               leftText: 'Delivery Free',
               rightText: 'Free',
@@ -43,14 +54,16 @@ class OrderScreen extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                color: Colors.black,
-              ),
+              child: Divider(),
             ),
-            TwoText(
-              leftText: 'Grand Total',
-              rightText:
-                  '\$ ${(globalPrice - (globalPrice * 0.08)).toStringAsFixed(2)}',
+            BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                return TwoText(
+                  leftText: 'Grand Total',
+                  rightText:
+                      '\$ ${(globalPrice - (globalPrice * 0.08)).toStringAsFixed(2)}',
+                );
+              },
             ),
             ElevatedButton(
               onPressed: () {
@@ -83,7 +96,7 @@ class OrderScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             )
           ],

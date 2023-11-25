@@ -42,14 +42,6 @@ class RadioCartEvent extends CartEvent {
   );
 }
 
-class PageCartEvent extends CartEvent {
-  int value;
-
-  PageCartEvent(
-    this.value,
-  );
-}
-
 class FilterCartEvent extends CartEvent {
   final int value;
 
@@ -62,14 +54,6 @@ class SortCartEvent extends CartEvent {
   final int value;
 
   SortCartEvent(
-    this.value,
-  );
-}
-
-class PagesEvent extends CartEvent {
-  final int value;
-
-  PagesEvent(
     this.value,
   );
 }

@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 
 class TwoText extends StatelessWidget {
   TwoText(
-      {super.key,
-      required this.leftText,
-      required this.rightText,
-      this.color = Colors.black});
+      {super.key, required this.leftText, required this.rightText, this.color});
   final String leftText;
   final String rightText;
   Color? color;

@@ -32,9 +32,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     });
     on<DeleteCartEvent>((event, emit) {
-      event.product.count = 0;
       globalPrice = globalPrice -
           (double.parse(event.product.price) * event.product.count!);
+      event.product.count = 0;
       orderProducts.remove(event.product);
       emit(CartInitial());
     });
@@ -43,12 +43,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         event.product.count = event.product.count! - 1;
         globalPrice -= double.parse(event.product.price);
       } else if (event.product.count! == 1) {
-        event.product.count = 0;
         globalPrice = globalPrice -
             (double.parse(event.product.price) * event.product.count!);
+        event.product.count = 0;
         orderProducts.remove(event.product);
       }
-      emit(CartInitial());
+      emit(DeleteCartState());
     });
     on<RadioCartEvent>((event, emit) {
       if (event.value == 0) {
@@ -114,30 +114,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         case 4:
           {
             emit(SortCartState('Deals & Discounts'));
-          }
-          break;
-      }
-    });
-    on<PageCartEvent>((event, emit) {
-      switch (event.value) {
-        case 0:
-          {
-            emit(PagesState(0));
-          }
-          break;
-        case 1:
-          {
-            emit(PagesState(1));
-          }
-          break;
-        case 2:
-          {
-            emit(PagesState(2));
-          }
-          break;
-        case 3:
-          {
-            emit(PagesState(3));
           }
           break;
       }

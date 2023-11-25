@@ -57,19 +57,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           if ((customer.userName == event.email ||
                   customer.email == event.email) &&
               customer.password == event.password) {
-            isFound = true;
-
             currentCustomer = customer;
             for (var element in dataSets) {
               listProduct.add(Product.fromJson(element));
             }
             emit(AuthInitial());
-          } else if ((customer.userName != event.email ||
-                  customer.email != event.email) ||
-              customer.password != event.password) {
-            emit(ErrorState(msg: "password or email it's not true"));
           }
         }
+        customerList.forEach((element) {
+          if (element.userName != event.email ||
+              element.password != event.password) {
+            emit(ErrorState(msg: "password or email it's not true"));
+          }
+        });
       } else {
         emit(ErrorState(msg: "Please enter the username And email"));
       }

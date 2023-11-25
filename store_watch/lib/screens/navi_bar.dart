@@ -3,11 +3,11 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store_watch/blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:store_watch/screens/home_screen.dart';
 import 'package:store_watch/screens/order_screen.dart';
 import 'package:store_watch/screens/profile_screen.dart';
 
+import '../blocs/navi_bloc/navi_bloc.dart';
 import 'search_screen.dart';
 
 class NaviBar extends StatelessWidget {
@@ -22,19 +22,19 @@ class NaviBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartBloc, CartState>(
+    return BlocBuilder<NaviBloc, NaviState>(
       builder: (context, state) {
-        if (state is PagesState) {
+        if (state is PageNaviState) {
           return Scaffold(
             extendBody: true,
-            body: pages[state.value],
+            body: pages[state.page],
             bottomNavigationBar: DotNavigationBar(
               marginR: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               curve: Curves.fastLinearToSlowEaseIn,
               backgroundColor: Colors.orange[200],
-              currentIndex: state.value,
+              currentIndex: state.page,
               onTap: (p0) {
-                context.read<CartBloc>().add(PageCartEvent(p0));
+                context.read<NaviBloc>().add(PageNaviEvent(page: p0));
               },
               dotIndicatorColor: const Color(0xff233b67),
               items: [
@@ -67,7 +67,7 @@ class NaviBar extends StatelessWidget {
             backgroundColor: Colors.orange[200],
             currentIndex: 0,
             onTap: (p0) {
-              context.read<CartBloc>().add(PageCartEvent(p0));
+              context.read<NaviBloc>().add(PageNaviEvent(page: p0));
             },
             dotIndicatorColor: const Color(0xff233b67),
             items: [

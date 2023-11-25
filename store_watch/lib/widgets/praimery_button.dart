@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //11
 class PraimeryButton extends StatelessWidget {
   const PraimeryButton({
@@ -17,7 +18,6 @@ class PraimeryButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: const Color(0xfffcc873),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -26,7 +26,7 @@ class PraimeryButton extends StatelessWidget {
         child: Text(buttonTitle,
             style: const TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             )),
       ),
     );

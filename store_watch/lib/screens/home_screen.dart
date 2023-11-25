@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.light_mode_outlined,
             ),
             onPressed: () {

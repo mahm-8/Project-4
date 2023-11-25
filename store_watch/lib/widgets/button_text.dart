@@ -15,8 +15,7 @@ class ButtonText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(title,
-          style: const TextStyle(
-              fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500)),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
       InkWell(
         onTap: onTap,
         child: Text(
